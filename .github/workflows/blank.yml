@@ -13,5 +13,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-     run: npm install
-     run: npx start-server-and-test "npm start" http://localhost:3000/api "npx cypress run"
+ - run: npm install
+
+- run: npm install --save-dev start-server-and-test
+
+- run: npx start-server-and-test "npm start" http://localhost:3000 "npx cypress run"

@@ -1,20 +1,50 @@
-name: Cypress API Tests
+name: usuarios-api-CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  cypress-run:
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
 
-      - name: Setup Node.js
+    steps:
+      # Checkout del repo de pruebas (este)
+      - name: Checkout projetomestrefinal2-api
+        uses: actions/checkout@v3
+        with:
+          path: projetomestrefinal2-api
+
+      # Checkout del repo del servidor (otro repo)
+      - name: Checkout hub-de-leitura-api
+        uses: actions/checkout@v3
+        with:
+          repository: fabioaraujoqa/hub-de-leitura-api
+          path: hub-de-leitura-api
+
+      - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
- - run: npm install
+          node-version: '20'   # ⚠️ Cypress 15 requiere Node >=20
 
-- run: npm install --save-dev start-server-and-test
+      - name: Instalar dependências do servidor
+        run: npm ci
+        working-directory: hub-de-leitura-api
 
-- run: npx start-server-and-test "npm start" http://localhost:3000 "npx cypress run"
+      - name: Instalar dependências 
+        run: npm ci
+        working-directory: projetomestrefinal2-api
+   
+      - name: Iniciar servidor principal
+        run: |
+          nohup node src/server.js &
+          sleep 5
+        working-directory: hub-de-leitura-api
+
+      - name: Rodar testes E2E
+        run: npm run test:e2e
+        working-directory: projetomestrefinal2-api
+        env:
+          PORT: 3000

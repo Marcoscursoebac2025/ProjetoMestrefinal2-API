@@ -12,10 +12,10 @@ jobs:
 
     steps:
       # Checkout del repo de pruebas
-      - name: Checkout projetomestrefinal2-api
+      - name: Checkout ProjetoMestrefinal2-API
         uses: actions/checkout@v3
         with:
-          path: projetomestrefinal2-api
+          path: ProjetoMestrefinal2-API
 
       # Checkout del repo del servidor
       - name: Checkout hub-de-leitura-api
@@ -29,29 +29,21 @@ jobs:
         with:
           node-version: '20'
 
-      # Verificar estructura del servidor
-      - name: Listar archivos del servidor
-        run: ls -R
-        working-directory: hub-de-leitura-api
-
-      # Instalar dependencias del servidor (ajusta la carpeta según el resultado del ls)
-      - name: Instalar dependências do servidor
-        run: npm install
-        working-directory: hub-de-leitura-api
-
-      # Instalar dependencias de pruebas
+      # Instalar dependencias SOLO en ProjetoMestrefinal2-API
       - name: Instalar dependências das provas
         run: npm install
-        working-directory: projetomestrefinal2-api
+        working-directory: ProjetoMestrefinal2-API
 
+      # Levantar el servidor (sin npm install porque no hay package.json)
       - name: Iniciar servidor principal
         run: |
           nohup node src/server.js & sleep 5
         working-directory: hub-de-leitura-api
 
+      # Ejecutar pruebas E2E
       - name: Rodar testes E2E
         run: npm run test:e2e
-        working-directory: projetomestrefinal2-api
+        working-directory: ProjetoMestrefinal2-API
         env:
           PORT: 3000
 

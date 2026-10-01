@@ -38,7 +38,7 @@ jobs:
       - name: Iniciar servidor principal
         run: |
           nohup node server.js & sleep 5
-        working-directory: hub-de-leitura-api/src
+        working-directory: hub-de-leitura-api/src/server
 
       # Ejecutar pruebas E2E
       - name: Rodar testes E2E

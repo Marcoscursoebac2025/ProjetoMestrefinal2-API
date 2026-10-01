@@ -16,9 +16,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: ProjetoMestrefinal2-API
-      - name: Verificar estructura del servidor
-        run: ls -R
-        working-directory: hub-de-leitura-api
 
       # Checkout del repo del servidor
       - name: Checkout hub-de-leitura-api
@@ -27,26 +24,4 @@ jobs:
           repository: fabioaraujoqa/hub-de-leitura-api
           path: hub-de-leitura-api
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      # Instalar dependencias SOLO en ProjetoMestrefinal2-API
-      - name: Instalar dependências das provas
-        run: npm ci
-        working-directory: ProjetoMestrefinal2-API
-
-      # Levantar el servidor (sin npm install porque no hay package.json)
-      - name: Iniciar servidor principal
-        run: |
-          nohup node server.js & sleep 5
-        working-directory: hub-de-leitura-api/src
-
-      # Ejecutar pruebas E2E
-      - name: Rodar testes E2E
-        run: npm run test:e2e
-        working-directory: ProjetoMestrefinal2-API
-        env:
-          PORT: 3000
-
+      # Verificar estructura

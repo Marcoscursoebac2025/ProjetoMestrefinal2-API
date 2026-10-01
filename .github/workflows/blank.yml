@@ -31,14 +31,14 @@ jobs:
 
       # Instalar dependencias SOLO en ProjetoMestrefinal2-API
       - name: Instalar dependências das provas
-        run: npm install
+        run: npm ci
         working-directory: ProjetoMestrefinal2-API
 
       # Levantar el servidor (sin npm install porque no hay package.json)
       - name: Iniciar servidor principal
         run: |
           nohup node server.js & sleep 5
-        working-directory: hub-de-leitura-api/src/server
+        working-directory: hub-de-leitura-api
 
       # Ejecutar pruebas E2E
       - name: Rodar testes E2E

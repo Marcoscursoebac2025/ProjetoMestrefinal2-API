@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout del repo de pruebas (este)
-      - name: Checkout ProjetoMestrefinal2-api
+      # Checkout del repo de pruebas
+      - name: Checkout projetomestrefinal2-api
         uses: actions/checkout@v3
         with:
-          path: ProjetoMestrefinal2-api
+          path: projetomestrefinal2-api
 
-      # Checkout del repo del servidor (otro repo)
+      # Checkout del repo del servidor
       - name: Checkout hub-de-leitura-api
         uses: actions/checkout@v3
         with:
@@ -27,20 +27,26 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'   # ⚠️ Cypress 15 requiere Node >=20
+          node-version: '20'
 
+      # Verificar estructura del servidor
+      - name: Listar archivos del servidor
+        run: ls -R
+        working-directory: hub-de-leitura-api
+
+      # Instalar dependencias del servidor (ajusta la carpeta según el resultado del ls)
       - name: Instalar dependências do servidor
         run: npm install
         working-directory: hub-de-leitura-api
 
-      - name: Instalar dependências 
+      # Instalar dependencias de pruebas
+      - name: Instalar dependências das provas
         run: npm install
-        working-directory: ProjetoMestrefinal2-api
-   
+        working-directory: projetomestrefinal2-api
+
       - name: Iniciar servidor principal
         run: |
-          nohup node src/server.js &
-          sleep 5
+          nohup node src/server.js & sleep 5
         working-directory: hub-de-leitura-api
 
       - name: Rodar testes E2E
@@ -48,3 +54,4 @@ jobs:
         working-directory: projetomestrefinal2-api
         env:
           PORT: 3000
+

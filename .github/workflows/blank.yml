@@ -37,7 +37,7 @@ jobs:
       # Levantar el servidor (sin npm install porque no hay package.json)
       - name: Iniciar servidor principal
         run: |
-          nohup node server.js & sleep 5
+          nohup node src/server.js & sleep 5
         working-directory: hub-de-leitura-api
 
       # Ejecutar pruebas E2E

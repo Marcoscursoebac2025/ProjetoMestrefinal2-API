@@ -9,7 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       # Checkout del repo de pruebas
       - name: Checkout ProjetoMestrefinal2-API
@@ -43,7 +42,8 @@ jobs:
       # Levantar el servidor
       - name: Iniciar servidor principal
         run: |
-          nohup node server.js & sleep 5
+          nohup node server.js &
+          sleep 5
         working-directory: hub-de-leitura-api/src
 
       # Ejecutar pruebas E2E
@@ -52,3 +52,4 @@ jobs:
         working-directory: ProjetoMestrefinal2-API
         env:
           PORT: 3000
+

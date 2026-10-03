@@ -43,7 +43,7 @@ jobs:
       - name: Iniciar servidor principal
         run: |
           nohup npm start &
-          npx wait-on http://localhost:3000
+          npx wait-on http://localhost:3000/api
         working-directory: hub-de-leitura-api
 
       # Ejecutar pruebas E2E

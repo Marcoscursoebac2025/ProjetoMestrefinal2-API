@@ -16,23 +16,18 @@ jobs:
         with:
           path: ProjetoMestrefinal2-API
 
-      # Checkout del repo del servidor
+     # Checkout del repo del servidor
       - name: Checkout hub-de-leitura-api
-        uses: actions/checkout@v3
-        with:
-          repository: fabioaraujoqa/hub-de-leitura-api
-          path: hub-de-leitura-api
-
-      # Verificar estructura del servidor
-      - name: Verificar estructura del servidor
-        run: ls -R
-        working-directory: hub-de-leitura-api
+       uses: actions/checkout@v3
+       with:
+       repository: EBAC-QE/hub-de-leitura-api
+       path: hub-de-leitura-api
 
       # Configurar Node.js
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+        node-version: '20'
 
       # Instalar dependencias SOLO en ProjetoMestrefinal2-API
       - name: Instalar dependências das provas

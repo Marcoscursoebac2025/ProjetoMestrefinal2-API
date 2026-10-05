@@ -4,13 +4,14 @@
   "description": "Testes api hub-de-leitura/",
   "main": "index.js",
   "scripts": {
-  "cy:run": "cypress run --spec cypress/e2e/usuarios-api.cy.js",
-  "test:e2e": "npm run cy:run"
+    "cy:run": "cypress run --spec cypress/e2e/usuarios-api.cy.js",
+    "test:e2e": "npm run cy:run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "allure-cypress": "^3.13.0",
     "cypress": "^15.21.1"
   }
 }

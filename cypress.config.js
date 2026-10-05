@@ -1,9 +1,15 @@
 const { defineConfig } = require("cypress");
+const { allureCypress } = require("allure-cypress/reporter");
 
 module.exports = defineConfig({
-  allowCypressEnv: false,
-
   e2e: {
-    baseUrl:"http://localhost:3000/api"
+    setupNodeEvents(on, config) {
+      allureCypress(on, config, {
+        resultsDir: "allure-results",
+      });
+      return config;
+    },
+    baseUrl:"http://localhost:3000/api",
+    specPattern: "cypress/e2e/**/*.cy.js"
     },
   })
